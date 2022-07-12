@@ -3,10 +3,14 @@
 import { Booklist } from "./components/Booklist.jsx";
 
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import axios from "axios";
 
 const App = () => {
-  const getDataFromAPI = (keyword) => {
-    return `${keyword} books`;
+  // Google Books APIで特定のKeywordを叩いた時の結果を返す関数
+  const getDataFromAPI = async (keyword) => {
+    const requestUrl = "https://www.googleapis.com/books/v1/volumes?q=intitle:";
+    const result = await axios.get(`${requestUrl}${keyword}`)
+    return result;
   };
 
   const languages = ["React","Vue","Angular"];
@@ -29,6 +33,7 @@ const App = () => {
         <Route
           path="/react" 
           element ={
+            // Language配列の0番目Reactを指定しつつ、BooksAPIにキーワード入れたら結果を返す関数を引数にしてBooklistコンポーネントに代入
             <Booklist language={languages[0]} getData={getDataFromAPI} />
              }
           />
