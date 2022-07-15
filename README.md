@@ -8,3 +8,4 @@
 - const result = getData?.(language).then((response) => 
 -   setBookData(response)
 - のところの、resultは変数設定しているが後ろで受けておらず、どう使っているのかわからなかったので確認したい
+- react内でのstyleの当て方は波カッコ2つ{{}}にすること、プロパティにハイフンを含む場合はキャメルケースに入れ替えること、値は’’で括ることも必要
