@@ -2,7 +2,7 @@
 
 - とりあえず講義通りのサイト作成に加えて、本のイメージ、著書など各種情報をBookdataから抽出
 - ReactではReturnするHTMLの中の最上位の要素は1つにまとめられていることが必要ということ理解した
-- 例えば<li>とか<div>が最上位に複数並んでいるとErrorになるので注意が必要
+- 例えばliとかdivが最上位に複数並んでいるとErrorになるので注意が必要
 
 - Booklist.jsxファイルの中の、
 - const result = getData?.(language).then((response) => 
