@@ -15,18 +15,34 @@ export const Booklist = ({ language, getData }) => {
         setBookData(response)
     );
    }, [language, getData]);
+  
+
+  console.log(bookData);
+//   const key = Object.keys(bookData);
+//   console.log(key);  
    
     //Bookdataが取得できたら、それをPタグにレンダリング   
    return (
-    <ul>
+    <div>
         {bookData === null ? (
             <p>now loading...</p>
         ): (
             
             bookData.data.items.map((x, index) => (
-               <li key={index}>{x.volumeInfo.title}</li>
+              <div>
+                 <div key={index}>
+                    <img src={x.volumeInfo.imageLinks.thumbnail}></img>
+                 </div> 
+                    <ul>  
+                        <li key={index}>タイトル：{x.volumeInfo.title}</li>
+                        <li key={index}>著者：{x.volumeInfo.authors}</li>
+                        <li key={index}>出版社：{x.volumeInfo.publisher}</li>
+                        <li key={index}>出版日：{x.volumeInfo.publishedDate}</li>
+                        <li key={index}><a href={x.volumeInfo.infoLink}>リンク</a></li>
+                    </ul>
+               </div>
         ))
     )}
-    </ul>
+    </div>
    );
 } ;
