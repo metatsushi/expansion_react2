@@ -21,7 +21,7 @@ export const Booklist = ({ language, getData }) => {
 //   const key = Object.keys(bookData);
 //   console.log(key);  
    
-    //Bookdataが取得できたら、それをPタグにレンダリング   
+    //Bookdataが取得できたら、それをLiでレンダリング   
    return (
     <div>
         {bookData === null ? (

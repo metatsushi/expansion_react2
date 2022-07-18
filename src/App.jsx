@@ -1,54 +1,58 @@
 // App.jsx
 
-import { Booklist } from "./components/Booklist.jsx";
-
+import {Booklist} from "./components/Booklist.jsx";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
 
+import { TodoIndex } from "./pages/TodoIndex.jsx";
+import { TodoToday } from "./pages/TodoToday.jsx";
+import { TodoPost } from "./pages/TodoPost.jsx";
+import { TestSlack } from "./pages/TestSlack";
+
+const NotFound = () => {
+  return <h2>Not Found... </h2>;
+};
+
 const App = () => {
   // Google Books APIで特定のKeywordを叩いた時の結果を返す関数
+  const languages = ["React","Html","Vue"];
   const getDataFromAPI = async (keyword) => {
     const requestUrl = "https://www.googleapis.com/books/v1/volumes?q=intitle:";
     const result = await axios.get(`${requestUrl}${keyword}`)
     return result;
   };
 
-  const languages = ["React","Vue","Angular"];
+  
   return (
     <BrowserRouter>
-      <h1>react app</h1>
+      <h1>Google Books APIで技術書を探す</h1>
       <ul>
         <li>
-          <Link to ="/react">React</Link>
+          <Link to="/todo/index">todo 一覧（全件）</Link>
         </li>
         <li>
-          <Link to ="/vue">Vue</Link>
+          <Link to="/todo/today">todo 一覧（本日）</Link>
         </li>
         <li>
-          <Link to ="/angular">Angular</Link>
+          <Link to="/todo/post">todo 入力</Link>
+        </li>
+        <li>
+          <Link to="/test-slack">test slack</Link>
         </li>
       </ul>
       <hr />
+       {/* todoコンポーネントをルーティング */} 
       <Routes>
-        <Route
-          path="/react" 
-          element ={
-            // Language配列の0番目Reactを指定しつつ、BooksAPIにキーワード入れたら結果を返す関数を引数にしてBooklistコンポーネントに代入
-            <Booklist language={languages[0]} getData={getDataFromAPI} />
-             }
-          />
-        <Route
-          path="/vue"
-          element ={
-            <Booklist language={languages[1]} getData={getDataFromAPI} />
-             }
-          />
-        <Route 
-          path="/angular"
-          element ={
-            <Booklist language={languages[2]} getData={getDataFromAPI} />
-             }
-          />
+        <Route path="/todo/index" element ={ <TodoIndex /> } />
+        <Route path="/todo/today" element ={ <TodoToday /> } />
+        <Route path="/todo/post" element ={ <TodoPost /> } />
+        <Route path="/test-slack" element ={ <TestSlack /> } />
+        
+        {/* どれにも当てはまらない場合は”/＊”となる */}
+        {/* NotFoundは最後に書かないと、”/*が全てなのでいきなり全部NotFoundになる” */}
+        <Route path="/*" element ={ <NotFound /> } />
+        
+    
       </Routes>  
     </BrowserRouter>
   );
